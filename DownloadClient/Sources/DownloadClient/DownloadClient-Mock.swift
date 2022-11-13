@@ -9,10 +9,9 @@ import Foundation
 import SwiftConcurrencyExtensions
 
 extension DownloadClient {
-    public static let mock = DownloadClient(download: { url in
+    public static let mock = DownloadClient { url in
         AsyncThrowingStream { continuation in
             Task {
-                await Task.sleep(seconds: 1)
                 continuation.yield(.progress(0))
                 
                 await Task.sleep(seconds: 1)
@@ -30,5 +29,5 @@ extension DownloadClient {
                 continuation.finish()
             }
         }
-    })
+    }
 }

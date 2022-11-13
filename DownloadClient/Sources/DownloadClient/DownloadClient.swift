@@ -14,12 +14,5 @@ extension DownloadClient {
         case idle
         case progress(Double)
         case finished(Data)
-        
-        public var progressPercent: String {
-            if case let .progress(value) = self {
-                return String(format: "%.0f", value * 100) + "%"
-            }
-            return ""
-        }
     }
 }

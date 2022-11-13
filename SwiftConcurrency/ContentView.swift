@@ -15,7 +15,8 @@ struct ContentView: View {
             Color(white: 0.95).ignoresSafeArea()
             VStack {
                 if case .idle = model.status {
-                    Text("Preparing...")
+                    Button("Start", action: startDownload)
+                        .mintButtonStyle()
                 }
                 
                 if case let .progress(value) = model.status {
@@ -25,6 +26,11 @@ struct ContentView: View {
                         ProgressView(value: value)
                             .tint(.mint)
                     }
+                    .frame(width: 200, height: 40)
+                    .cardStyle()
+                    
+                    Button("Stop", action: stopDownload)
+                        .mintButtonStyle()
                 }
                 
                 if case .finished = model.status {
@@ -34,14 +40,21 @@ struct ContentView: View {
                             .fontWeight(.semibold)
                             .foregroundColor(.mint)
                     }
+                    .frame(width: 200, height: 40)
+                    .cardStyle()
                 }
             }
-            .frame(width: 200, height: 40)
-            .cardStyle()
         }
-        .task {
+    }
+    
+    func startDownload() {
+        Task {
             await model.downloadLargeFile()
         }
+    }
+    
+    func stopDownload() {
+        model.cancelDownload()
     }
 }
 
@@ -49,15 +62,21 @@ extension View {
     func cardStyle(
         backgroundColor: Color = .white,
         cornerRadius: CGFloat = 8,
-        strokeColor: Color = .gray,
+        strokeColor: Color = .gray.opacity(0.2),
         lineWidth: CGFloat = 2
     ) -> some View {
         self.padding()
             .background(backgroundColor)
             .cornerRadius(cornerRadius)
             .overlay(RoundedRectangle(cornerRadius: cornerRadius)
-                .stroke(strokeColor.opacity(0.2), lineWidth: lineWidth)
+                .stroke(strokeColor, lineWidth: lineWidth)
             )
+    }
+    
+    func mintButtonStyle() -> some View {
+        self.buttonStyle(.borderedProminent)
+            .fontWeight(.semibold)
+            .tint(.mint)
     }
 }
 

@@ -11,11 +11,12 @@ import Foundation
 
 class ContentModel: ObservableObject {
     let client: DownloadClient
+    var task: Task<Void, Never>?
     
     @Published var status: DownloadClient.Status = .idle
     @Published var error: Error?
     
-    init(client: DownloadClient = .mock) {
+    init(client: DownloadClient = .live) {
         self.client = client
     }
     
@@ -23,19 +24,30 @@ class ContentModel: ObservableObject {
     func downloadLargeFile() async {
         let string = "http://ipv4.download.thinkbroadband.com/1MB.zip"
         let url = URL(string: string)!
+        let sequence = client.download(url)
         
-        do {
-            for try await status in client.download(url) {
-                self.status = status
+        task = Task {
+            do {
+                for try await status in sequence {
+                    self.status = status
+                }
+            } catch {
+                self.error = error
             }
-        } catch {
-            self.error = error
         }
     }
     
-    func collectCounts() async {
-        let stream = Counter(limit: 6)
-        let values = await stream.collect()
-        print(values)
+    func cancelDownload() {
+        task?.cancel()
+        status = .idle
+    }
+}
+
+extension DownloadClient.Status {
+    var progressPercent: String {
+        if case let .progress(value) = self {
+            return String(format: "%.0f", value * 100) + "%"
+        }
+        return ""
     }
 }
