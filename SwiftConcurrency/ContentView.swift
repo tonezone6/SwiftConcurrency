@@ -14,34 +14,31 @@ struct ContentView: View {
         ZStack {
             Color(white: 0.95).ignoresSafeArea()
             VStack {
-                if case .idle = model.status {
+                if let status = model.status {
+                    if case let .progress(value) = status {
+                        VStack {
+                            Text(status.progressPercent)
+                                .fontWeight(.medium)
+                            ProgressView(value: value)
+                                .tint(.mint)
+                        }
+                        .frame(width: 200, height: 40)
+                        .cardStyle()
+                    }
+                    
+                    if case .finished = status {
+                        HStack {
+                            Text("Download finished")
+                            Image.checkmarkCircle
+                                .fontWeight(.semibold)
+                                .foregroundColor(.mint)
+                        }
+                        .frame(width: 200, height: 40)
+                        .cardStyle()
+                    }
+                } else {
                     Button("Start", action: startDownload)
                         .mintButtonStyle()
-                }
-                
-                if case let .progress(value) = model.status {
-                    VStack {
-                        Text(model.status.progressPercent)
-                            .fontWeight(.medium)
-                        ProgressView(value: value)
-                            .tint(.mint)
-                    }
-                    .frame(width: 200, height: 40)
-                    .cardStyle()
-                    
-                    Button("Stop", action: stopDownload)
-                        .mintButtonStyle()
-                }
-                
-                if case .finished = model.status {
-                    HStack {
-                        Text("Download finished")
-                        Image.checkmarkCircle
-                            .fontWeight(.semibold)
-                            .foregroundColor(.mint)
-                    }
-                    .frame(width: 200, height: 40)
-                    .cardStyle()
                 }
             }
         }
@@ -51,10 +48,6 @@ struct ContentView: View {
         Task {
             await model.downloadLargeFile()
         }
-    }
-    
-    func stopDownload() {
-        model.cancelDownload()
     }
 }
 
@@ -86,6 +79,6 @@ extension Image {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(model: .init(client: .mock))
+        ContentView(model: .init())
     }
 }

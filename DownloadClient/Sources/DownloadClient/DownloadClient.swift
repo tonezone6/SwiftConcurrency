@@ -16,3 +16,4 @@ extension DownloadClient {
         case finished(Data)
     }
 }
+

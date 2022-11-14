@@ -6,44 +6,44 @@
 //
 
 import Counter
-import DownloadClient
 import Foundation
+import SwiftConcurrencyExtensions
 
 class ContentModel: ObservableObject {
-    let client: DownloadClient
-    var task: Task<Void, Never>?
     
-    @Published var status: DownloadClient.Status = .idle
+    @Published var status: DownloadStatus?
     @Published var error: Error?
     
-    init(client: DownloadClient = .live) {
-        self.client = client
-    }
+    init() {}
     
     @MainActor
     func downloadLargeFile() async {
-        let string = "http://ipv4.download.thinkbroadband.com/1MB.zip"
-        let url = URL(string: string)!
-        let sequence = client.download(url)
+        let start = Date.now
+        var count = 0
         
-        task = Task {
-            do {
-                for try await status in sequence {
-                    self.status = status
-                }
-            } catch {
-                self.error = error
+        do {
+            let string = "http://ipv4.download.thinkbroadband.com/10MB.zip"
+            let url = URL(string: string)!
+            let (bytes, response) = try await URLSession.shared.bytes(from: url)
+            let lenght = response.expectedContentLength
+            
+            let chunks = bytes.chunked(size: 320_768) // 32KB
+            let sequence = chunks.convertToDownloadStatus(expectedLenght: lenght)
+            
+            for try await status in sequence {
+                self.status = status
+                count += 1
             }
+        } catch {
+            self.error = error
         }
-    }
-    
-    func cancelDownload() {
-        task?.cancel()
-        status = .idle
+        
+        print("Chunks,", count)
+        print("Duration, \(Date.now.timeIntervalSince(start))")
     }
 }
 
-extension DownloadClient.Status {
+extension DownloadStatus {
     var progressPercent: String {
         if case let .progress(value) = self {
             return String(format: "%.0f", value * 100) + "%"

@@ -8,6 +8,7 @@
 import Foundation
 
 extension DownloadClient {
+    
     public static let live = DownloadClient(download: { url in
         AsyncThrowingStream { continuation in
             Task {
@@ -36,3 +37,4 @@ extension DownloadClient {
         }
     })
 }
+
