@@ -1,8 +1,8 @@
 //
 //  ContentView.swift
-//  AsyncStream
+//  SwiftConcurrency
 //
-//  Created by Alex S. on 30/10/2022.
+//  Created by Alex S. on 15/11/2022.
 //
 
 import SwiftUI
@@ -14,38 +14,32 @@ struct ContentView: View {
         ZStack {
             Color(white: 0.95).ignoresSafeArea()
             VStack {
-                if let status = model.status {
-                    if case let .progress(value) = status {
-                        VStack {
-                            Text(status.progressPercent)
-                                .fontWeight(.medium)
-                            ProgressView(value: value)
-                                .tint(.mint)
-                        }
-                        .frame(width: 200, height: 40)
-                        .cardStyle()
+                if case .idle = model.status {
+                    Text("Preparing...")
+                }
+                
+                if case let .progress(value) = model.status {
+                    VStack {
+                        Text(value.progressPercent)
+                            .fontWeight(.medium)
+                        ProgressView(value: value)
+                            .tint(.mint)
                     }
-                    
-                    if case .finished = status {
-                        HStack {
-                            Text("Download finished")
-                            Image.checkmarkCircle
-                                .fontWeight(.semibold)
-                                .foregroundColor(.mint)
-                        }
-                        .frame(width: 200, height: 40)
-                        .cardStyle()
+                }
+                
+                if case .finished = model.status {
+                    HStack {
+                        Text("Download finished")
+                        Image.checkmarkCircle
+                            .fontWeight(.semibold)
+                            .foregroundColor(.mint)
                     }
-                } else {
-                    Button("Start", action: startDownload)
-                        .mintButtonStyle()
                 }
             }
+            .frame(width: 200, height: 40)
+            .cardStyle()
         }
-    }
-    
-    func startDownload() {
-        Task {
+        .task {
             await model.downloadLargeFile()
         }
     }
@@ -77,8 +71,8 @@ extension Image {
     static let checkmarkCircle = Image(systemName: "checkmark.circle")
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView(model: .init())
-    }
-}
+//struct ContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ContentView()
+//    }
+//}

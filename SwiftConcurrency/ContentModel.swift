@@ -10,12 +10,8 @@ import Foundation
 import SwiftConcurrencyExtensions
 
 class ContentModel: ObservableObject {
-    
-    @Published var status: DownloadStatus?
-    @Published var error: Error?
-    
-    init() {}
-    
+    @Published var status: DownloadSequenceStatus = .idle
+        
     @MainActor
     func downloadLargeFile() async {
         let start = Date.now
@@ -26,16 +22,16 @@ class ContentModel: ObservableObject {
             let url = URL(string: string)!
             let (bytes, response) = try await URLSession.shared.bytes(from: url)
             let lenght = response.expectedContentLength
-            
-            let chunks = bytes.chunked(size: 320_768) // 32KB
-            let sequence = chunks.convertToDownloadStatus(expectedLenght: lenght)
+            let chunks = bytes.chunks(size: 327_680) // 320KB
+            let sequence = chunks.downloadStatus(expectedLenght: lenght)
             
             for try await status in sequence {
                 self.status = status
+                print(status)
                 count += 1
             }
         } catch {
-            self.error = error
+            print(error.localizedDescription)
         }
         
         print("Chunks,", count)
@@ -43,11 +39,8 @@ class ContentModel: ObservableObject {
     }
 }
 
-extension DownloadStatus {
+extension Double {
     var progressPercent: String {
-        if case let .progress(value) = self {
-            return String(format: "%.0f", value * 100) + "%"
-        }
-        return ""
+        String(format: "%.0f", self * 100) + "%"
     }
 }

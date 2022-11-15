@@ -8,12 +8,12 @@
 import Foundation
 
 extension AsyncSequence where Element == UInt8 {
-    public func chunked(size: Int) -> Chunked<Self> {
-        Chunked(self, size: size)
+    public func chunks(size: Int) -> Chunks<Self> {
+        Chunks(self, size: size)
     }
 }
 
-public struct Chunked<Base: AsyncSequence>: AsyncSequence where Base.Element == UInt8 {
+public struct Chunks<Base: AsyncSequence>: AsyncSequence where Base.Element == UInt8 {
     public typealias Element = Data
     
     let base: Base

@@ -7,26 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DB17E97829237B0A004D97DD /* SwiftConcurrencyExtensions in Frameworks */ = {isa = PBXBuildFile; productRef = DB17E97729237B0A004D97DD /* SwiftConcurrencyExtensions */; };
+		DB17E97A29237BE2004D97DD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB17E97929237BE2004D97DD /* ContentView.swift */; };
 		DB92D3C0290E65D100160A10 /* SwiftConcurrencyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB92D3BF290E65D100160A10 /* SwiftConcurrencyApp.swift */; };
-		DB92D3C2290E65D100160A10 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB92D3C1290E65D100160A10 /* ContentView.swift */; };
 		DB92D3C4290E65D200160A10 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB92D3C3290E65D200160A10 /* Assets.xcassets */; };
 		DB92D3C7290E65D200160A10 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB92D3C6290E65D200160A10 /* Preview Assets.xcassets */; };
 		DB92D3CE290E665300160A10 /* ContentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB92D3CD290E665300160A10 /* ContentModel.swift */; };
-		DBACD7EB291C2EDB00C9516E /* DownloadClient in Frameworks */ = {isa = PBXBuildFile; productRef = DBACD7EA291C2EDB00C9516E /* DownloadClient */; };
 		DBACD7EE291C320000C9516E /* LocationClient in Frameworks */ = {isa = PBXBuildFile; productRef = DBACD7ED291C320000C9516E /* LocationClient */; };
 		DBACD7F1291C344500C9516E /* ConnectionClient in Frameworks */ = {isa = PBXBuildFile; productRef = DBACD7F0291C344500C9516E /* ConnectionClient */; };
 		DBACD7F4291C35A000C9516E /* Counter in Frameworks */ = {isa = PBXBuildFile; productRef = DBACD7F3291C35A000C9516E /* Counter */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DB17E97929237BE2004D97DD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		DB92D3BC290E65D100160A10 /* SwiftConcurrency.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftConcurrency.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB92D3BF290E65D100160A10 /* SwiftConcurrencyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftConcurrencyApp.swift; sourceTree = "<group>"; };
-		DB92D3C1290E65D100160A10 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		DB92D3C3290E65D200160A10 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DB92D3C6290E65D200160A10 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		DB92D3CD290E665300160A10 /* ContentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentModel.swift; sourceTree = "<group>"; };
 		DBA27C23291AE8AD00856363 /* SwiftConcurrency-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SwiftConcurrency-Info.plist"; sourceTree = "<group>"; };
-		DBACD7E8291C2DC300C9516E /* DownloadClient */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = DownloadClient; sourceTree = "<group>"; };
 		DBACD7EC291C314700C9516E /* LocationClient */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = LocationClient; sourceTree = "<group>"; };
 		DBACD7EF291C330E00C9516E /* ConnectionClient */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = ConnectionClient; sourceTree = "<group>"; };
 		DBACD7F2291C353600C9516E /* Counter */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Counter; sourceTree = "<group>"; };
@@ -39,7 +38,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DBACD7EE291C320000C9516E /* LocationClient in Frameworks */,
-				DBACD7EB291C2EDB00C9516E /* DownloadClient in Frameworks */,
+				DB17E97829237B0A004D97DD /* SwiftConcurrencyExtensions in Frameworks */,
 				DBACD7F1291C344500C9516E /* ConnectionClient in Frameworks */,
 				DBACD7F4291C35A000C9516E /* Counter in Frameworks */,
 			);
@@ -53,7 +52,6 @@
 			children = (
 				DBACD7F2291C353600C9516E /* Counter */,
 				DBACD7EF291C330E00C9516E /* ConnectionClient */,
-				DBACD7E8291C2DC300C9516E /* DownloadClient */,
 				DBACD7EC291C314700C9516E /* LocationClient */,
 				DBACD7F5291C363800C9516E /* SwiftConcurrencyExtensions */,
 				DB92D3BE290E65D100160A10 /* SwiftConcurrency */,
@@ -74,8 +72,8 @@
 			isa = PBXGroup;
 			children = (
 				DB92D3BF290E65D100160A10 /* SwiftConcurrencyApp.swift */,
-				DB92D3C1290E65D100160A10 /* ContentView.swift */,
 				DB92D3CD290E665300160A10 /* ContentModel.swift */,
+				DB17E97929237BE2004D97DD /* ContentView.swift */,
 				DB92D3C3290E65D200160A10 /* Assets.xcassets */,
 				DBA27C23291AE8AD00856363 /* SwiftConcurrency-Info.plist */,
 				DB92D3C5290E65D200160A10 /* Preview Content */,
@@ -115,10 +113,10 @@
 			);
 			name = SwiftConcurrency;
 			packageProductDependencies = (
-				DBACD7EA291C2EDB00C9516E /* DownloadClient */,
 				DBACD7ED291C320000C9516E /* LocationClient */,
 				DBACD7F0291C344500C9516E /* ConnectionClient */,
 				DBACD7F3291C35A000C9516E /* Counter */,
+				DB17E97729237B0A004D97DD /* SwiftConcurrencyExtensions */,
 			);
 			productName = AsyncStream;
 			productReference = DB92D3BC290E65D100160A10 /* SwiftConcurrency.app */;
@@ -174,9 +172,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DB92D3C2290E65D100160A10 /* ContentView.swift in Sources */,
 				DB92D3C0290E65D100160A10 /* SwiftConcurrencyApp.swift in Sources */,
 				DB92D3CE290E665300160A10 /* ContentModel.swift in Sources */,
+				DB17E97A29237BE2004D97DD /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -381,9 +379,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		DBACD7EA291C2EDB00C9516E /* DownloadClient */ = {
+		DB17E97729237B0A004D97DD /* SwiftConcurrencyExtensions */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = DownloadClient;
+			productName = SwiftConcurrencyExtensions;
 		};
 		DBACD7ED291C320000C9516E /* LocationClient */ = {
 			isa = XCSwiftPackageProductDependency;
