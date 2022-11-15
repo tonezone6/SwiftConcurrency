@@ -10,7 +10,7 @@ import Foundation
 import SwiftConcurrencyExtensions
 
 class ContentModel: ObservableObject {
-    @Published var status: DownloadSequenceStatus = .idle
+    @Published var status: DownloadStatus = .idle
         
     @MainActor
     func downloadLargeFile() async {

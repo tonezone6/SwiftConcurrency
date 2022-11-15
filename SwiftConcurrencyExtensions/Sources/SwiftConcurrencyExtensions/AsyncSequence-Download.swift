@@ -13,14 +13,14 @@ extension AsyncSequence where Element == Data {
     }
 }
 
-public enum DownloadSequenceStatus {
+public enum DownloadStatus {
     case idle
     case progress(Double)
     case finished(Data)
 }
 
 public struct DownloadStatusSequence<Base: AsyncSequence>: AsyncSequence where Base.Element == Data {
-    public typealias Element = DownloadSequenceStatus
+    public typealias Element = DownloadStatus
     
     let base: Base
     let expectedLenght: Int64
@@ -42,7 +42,7 @@ public struct DownloadStatusSequence<Base: AsyncSequence>: AsyncSequence where B
         let expectedLenght: Int64
         var data = Data()
         
-        public mutating func next() async throws -> DownloadSequenceStatus? {
+        public mutating func next() async throws -> DownloadStatus? {
             guard Task.isCancelled == false else {
                 return nil
             }
